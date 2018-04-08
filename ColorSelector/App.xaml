@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="ConvertersAndStyle/ConverterDictionary.xaml"/>
                 <ResourceDictionary Source="ConvertersAndStyle/ApplicationStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <local:ApplicationDataClass x:Key="ApplicationData"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

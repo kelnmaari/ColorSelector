@@ -64,4 +64,31 @@ NotInheritable Class App
         deferral.Complete()
     End Sub
 
+    Public Sub SetTitleBar(a As VisualSettingDataClass)
+        Dim tb As ApplicationViewTitleBar = ApplicationView.GetForCurrentView.TitleBar
+        'Устанавливает ФОН заголовка, но не затрагивает часть с кнопками управления окном.
+        tb.BackgroundColor = a.StandartColor
+        'Устанавливает ФОН под кнопками управления окном
+        tb.ButtonBackgroundColor = a.StandartColor
+        'Устанавливает цвет СИМВОЛОВ внутри кнопок управления окном (чертачка, крестик, квадратик).
+        tb.ButtonForegroundColor = a.ForegroundColor
+        'Устанавливает ФОН кнопок управления окном в момент наведния на них мыши. ВНИМАНИЕ! Не влияет на кнопку закрытия окна.
+        tb.ButtonHoverBackgroundColor = a.LightColor
+        'Устанавливает цвет СИМВОЛОВ внутри кнопок управления окном в момент наведния на них мыши. ВНИМАНИЕ! Не влияет на кнопку закрытия окна.
+        tb.ButtonHoverForegroundColor = a.ForegroundColor
+        'Устанавливает ФОН кнопок управления окном в момент когда приложение не активно
+        tb.ButtonInactiveBackgroundColor = a.LightColor
+        'Устанавливает цвет СИМВОЛОВ внутри кнопок управления окном в момент когда приложение не активно
+        tb.ButtonInactiveForegroundColor = a.StandartColor
+        'Устанавливает ФОН кнопок управления окном в момент нажатия на них. ВНИМАНИЕ! Не влияет на кнопку закрытия окна.
+        tb.ButtonPressedBackgroundColor = a.DarkColor
+        'Устанавливает цвет СИМВОЛОВ внутри кнопок управления окном в момент нажатия на них. ВНИМАНИЕ! Не влияет на кнопку закрытия окна.
+        tb.ButtonPressedForegroundColor = a.ForegroundColor
+        'Устанавливает цвет СИМВОЛОВ заголовка окна
+        tb.ForegroundColor = a.ForegroundColor
+        'Устанавливает ФОН заголовка в момент когда приложение не активно
+        tb.InactiveBackgroundColor = a.LightColor
+        'Устанавливает цвет СИМВОЛОВ заголовка окна в момент когда приложение не активно
+        tb.InactiveForegroundColor = a.StandartColor
+    End Sub
 End Class
