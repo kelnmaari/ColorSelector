@@ -14,13 +14,22 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <GridView Header="Цветовой стиль:" x:Name="StyleGridView" ItemsSource="{Binding VisualSetting.StylePresetsList}" ItemTemplate="{StaticResource StyleListItemDataTemplate}" SelectedIndex="{Binding VisualSetting.StylePresetsSelectedIndex, Mode=TwoWay}" SelectionChanged="StyleGridView_SelectionChanged"/>
-        <GridView Header="Цвета по категориям:" x:Name="SelectColorGridView" Grid.Row="1" Margin="10,0,10,10" SelectedIndex="0">
-            <Border Background="{Binding VisualSetting.LightColor, Converter={StaticResource ColorToBrushConverter}}" Height="50" Width="50" Margin="5" CornerRadius="10" BorderBrush="{Binding VisualSetting.DarkColor, Converter={StaticResource ColorToBrushConverter}}" BorderThickness="2"/>
-            <Border Background="{Binding VisualSetting.StandartColor, Converter={StaticResource ColorToBrushConverter}}" Height="50" Width="50" Margin="5" CornerRadius="10"/>
-            <Border Background="{Binding VisualSetting.DarkColor, Converter={StaticResource ColorToBrushConverter}}" Height="50" Width="50" Margin="5" CornerRadius="10"/>
-            <Border Background="{Binding VisualSetting.ForegroundColor, Converter={StaticResource ColorToBrushConverter}}" Height="50" Width="50" Margin="5" CornerRadius="10"/>
+        <GridView Header="Цвета по категориям:" x:Name="SelectColorGridView" Grid.Row="1" Margin="10,0,10,10" SelectedIndex="0" SelectionChanged="SelectColorGridView_SelectionChanged">
+            <Border Background="{Binding VisualSetting.LightColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorBorder}" BorderBrush="{Binding VisualSetting.DarkColor, Converter={StaticResource ColorToBrushConverter}}" BorderThickness="2"/>
+            <Border Background="{Binding VisualSetting.StandartColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorBorder}"/>
+            <Border Background="{Binding VisualSetting.DarkColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorBorder}"/>
+            <Border Background="{Binding VisualSetting.ForegroundColor, Converter={StaticResource ColorToBrushConverter}}" Style="{StaticResource ColorBorder}"/>
         </GridView>
-        
+        <Border Grid.Row="2" Padding="5" Background="White" Margin="10,0,10,10">
+            <RichTextBlock>
+                <Paragraph TextAlignment="Left" FontFamily="Consolas">
+                    <Span xml:space="preserve"><Run Foreground="#a31515">&lt;SolidColorBrush</Run> <Run Foreground="Red">x</Run><Run Foreground="Blue">:</Run><Run Foreground="Red">Key</Run><Run Foreground="Blue">="LightBackgroundBrush"</Run> <Run Foreground="Red">Color</Run><Run Foreground="Blue">="</Run><Run Foreground="Blue" Text="{Binding VisualSetting.LightColor}"/><Run Foreground="Blue">"/&gt;</Run></Span>
+                    <LineBreak/><Span xml:space="preserve"><Run Foreground="#a31515">&lt;SolidColorBrush</Run> <Run Foreground="Red">x</Run><Run Foreground="Blue">:</Run><Run Foreground="Red">Key</Run><Run Foreground="Blue">="StandartBackgroundBrush"</Run> <Run Foreground="Red">Color</Run><Run Foreground="Blue">="</Run><Run Foreground="Blue" Text="{Binding VisualSetting.StandartColor}"/><Run Foreground="Blue">"/&gt;</Run></Span>
+                    <LineBreak/><Span xml:space="preserve"><Run Foreground="#a31515">&lt;SolidColorBrush</Run> <Run Foreground="Red">x</Run><Run Foreground="Blue">:</Run><Run Foreground="Red">Key</Run><Run Foreground="Blue">="DarkBackgroundBrush"</Run> <Run Foreground="Red">Color</Run><Run Foreground="Blue">="</Run><Run Foreground="Blue" Text="{Binding VisualSetting.DarkColor}"/><Run Foreground="Blue">"/&gt;</Run></Span>
+                    <LineBreak/><Span xml:space="preserve"><Run Foreground="#a31515">&lt;SolidColorBrush</Run> <Run Foreground="Red">x</Run><Run Foreground="Blue">:</Run><Run Foreground="Red">Key</Run><Run Foreground="Blue">="ForegroundBrush"</Run> <Run Foreground="Red">Color</Run><Run Foreground="Blue">="</Run><Run Foreground="Blue" Text="{Binding VisualSetting.ForegroundColor}"/><Run Foreground="Blue">"/&gt;</Run></Span>
+                </Paragraph>
+            </RichTextBlock>
+        </Border>
         <Grid Margin="10" Grid.Column="1" Grid.RowSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -32,12 +41,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Viewbox Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="0,15,0,25">
-                <Grid>
-                    <ColorPicker Foreground="{StaticResource ForegroundBrush}" Color="{Binding VisualSetting.LightColor, Mode=TwoWay}" Visibility="{Binding ElementName=SelectColorGridView,Path=SelectedIndex,Converter={StaticResource SelectIndexToVisibleConverter},ConverterParameter=0}"/>
-                    <ColorPicker Foreground="{StaticResource ForegroundBrush}" Color="{Binding VisualSetting.StandartColor, Mode=TwoWay}" Visibility="{Binding ElementName=SelectColorGridView,Path=SelectedIndex,Converter={StaticResource SelectIndexToVisibleConverter},ConverterParameter=1}"/>
-                    <ColorPicker Foreground="{StaticResource ForegroundBrush}" Color="{Binding VisualSetting.DarkColor, Mode=TwoWay}" Visibility="{Binding ElementName=SelectColorGridView,Path=SelectedIndex,Converter={StaticResource SelectIndexToVisibleConverter},ConverterParameter=2}"/>
-                    <ColorPicker Foreground="{StaticResource ForegroundBrush}" Color="{Binding VisualSetting.ForegroundColor, Mode=TwoWay}" Visibility="{Binding ElementName=SelectColorGridView,Path=SelectedIndex,Converter={StaticResource SelectIndexToVisibleConverter},ConverterParameter=3}"/>
-                </Grid>
+                <ColorPicker x:Name="SelectColorPicker" ColorSpectrumShape="Ring" Foreground="{StaticResource ForegroundBrush}" ColorChanged="ColorPicker_ColorChanged"/>
             </Viewbox>
             <Button x:Name="AddButton" Click="AddButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Grid.Row="1">Добавить</Button>
             <Button x:Name="ChengeButton" Click="ChengeButton_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" Margin="0,10,5,0">Изменить</Button>

@@ -13,6 +13,7 @@
     End Sub
     Private Sub StyleGridView_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         MyApp.SetTitleBar(MyApplicationData.VisualSetting)
+        SelectColorGridView_SelectionChanged()
     End Sub
 
     Private Sub AddButton_Click(sender As Object, e As RoutedEventArgs)
@@ -30,5 +31,24 @@
         MyApplicationData.VisualSetting.StylePresetsList.RemoveAt(StyleGridView.SelectedIndex)
         If StyleGridView.Items.Count = 0 Then Exit Sub
         StyleGridView.SelectedIndex = 0
+    End Sub
+
+    Private Sub ColorPicker_ColorChanged(sender As ColorPicker, args As ColorChangedEventArgs)
+        Select Case SelectColorGridView.SelectedIndex
+            Case 0
+                MyApplicationData.VisualSetting.LightColor = args.NewColor
+            Case 1
+                MyApplicationData.VisualSetting.StandartColor = args.NewColor
+            Case 2
+                MyApplicationData.VisualSetting.DarkColor = args.NewColor
+            Case 3
+                MyApplicationData.VisualSetting.ForegroundColor = args.NewColor
+        End Select
+    End Sub
+
+    Private Sub SelectColorGridView_SelectionChanged()
+        If SelectColorGridView.SelectedIndex > -1 And CType(SelectColorGridView.SelectedItem, Border).Background IsNot Nothing Then
+            SelectColorPicker.Color = CType(CType(SelectColorGridView.SelectedItem, Border).Background, SolidColorBrush).Color
+        End If
     End Sub
 End Class

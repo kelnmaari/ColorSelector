@@ -3,5 +3,4 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ColorSelector">
     <local:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
-    <local:SelectIndexToVisibleConverter x:Key="SelectIndexToVisibleConverter"/>
 </ResourceDictionary>
