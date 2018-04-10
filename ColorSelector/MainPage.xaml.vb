@@ -6,6 +6,7 @@
         MyApplicationData.VisualSetting.SetValues(Await SavedDataManager.LoadSettings())
         MyApp.SetTitleBar(MyApplicationData.VisualSetting)
         AddHandler Application.Current.Suspending, AddressOf SuspendingApp
+        SelectColorGridView_SelectionChanged()
     End Sub
 
     Private Async Sub SuspendingApp(sender As Object, e As SuspendingEventArgs)
