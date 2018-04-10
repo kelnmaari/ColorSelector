@@ -186,22 +186,26 @@ Public Class SavedDataManager
     ''' </summary>
     ''' <returns></returns>
     Public Shared Async Function LoadSettings() As Task(Of VisualSettingDataClass)
-        'Определяем путь к локальной папке
-        Dim localFolder As StorageFolder = ApplicationData.Current.LocalFolder
-        'Удаляем файл, если нужно очистить настройеки
-        'Dim fil As Windows.Storage.StorageFile = Await localFolder.GetFileAsync("SettingsFile.dat")
-        'Await fil.DeleteAsync()
-        'Загружаем фал из локального хранилища.
-        Dim DataFile As StorageFile = Await localFolder.TryGetItemAsync("SettingsFile.dat")
-        If DataFile Is Nothing Then Return New VisualSettingDataClass
-        'Захружаем XML в строку
-        Dim SerializedString As String = Await FileIO.ReadTextAsync(DataFile)
-        'Создаем сериализатор
-        Dim reader = New XmlSerializer(GetType(VisualSettingDataClass))
-        'Создаем ридер
-        Dim sr As New StringReader(SerializedString)
-        'Десериализуем из ридера в класс
-        Dim saveclass As VisualSettingDataClass = reader.Deserialize(sr)
-        Return saveclass
+        Try
+            'Определяем путь к локальной папке
+            Dim localFolder As StorageFolder = ApplicationData.Current.LocalFolder
+            'Удаляем файл, если нужно очистить настройеки
+            'Dim fil As Windows.Storage.StorageFile = Await localFolder.GetFileAsync("SettingsFile.dat")
+            'Await fil.DeleteAsync()
+            'Загружаем фал из локального хранилища.
+            Dim DataFile As StorageFile = Await localFolder.TryGetItemAsync("SettingsFile.dat")
+            If DataFile Is Nothing Then Return New VisualSettingDataClass
+            'Захружаем XML в строку
+            Dim SerializedString As String = Await FileIO.ReadTextAsync(DataFile)
+            'Создаем сериализатор
+            Dim reader = New XmlSerializer(GetType(VisualSettingDataClass))
+            'Создаем ридер
+            Dim sr As New StringReader(SerializedString)
+            'Десериализуем из ридера в класс
+            Dim saveclass As VisualSettingDataClass = reader.Deserialize(sr)
+            Return saveclass
+        Catch ex As Exception
+        End Try
+        Return New VisualSettingDataClass
     End Function
 End Class
